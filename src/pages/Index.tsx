@@ -21,9 +21,6 @@ const Index = () => {
     configScript.async = true;
     document.body.appendChild(configScript);
 
-    // The config script will automatically initialize the webchat
-    // No need for manual initialization
-
     return () => {
       if (document.body.contains(injectScript)) {
         document.body.removeChild(injectScript);
@@ -113,27 +110,31 @@ const Index = () => {
                 <div className="flex flex-col items-center space-y-2">
                   <Mail className="w-6 h-6 text-blue-600" />
                   <span className="font-medium">Email</span>
-                  <span className="text-gray-600">contact@example.com</span>
+                  <span className="text-gray-600">dund514@gmail.com</span>
                 </div>
                 <div className="flex flex-col items-center space-y-2">
                   <Phone className="w-6 h-6 text-blue-600" />
                   <span className="font-medium">Phone</span>
-                  <span className="text-gray-600">+1 (555) 123-4567</span>
+                  <span className="text-gray-600">+1 (647) 866-8514</span>
                 </div>
                 <div className="flex flex-col items-center space-y-2">
                   <MapPin className="w-6 h-6 text-blue-600" />
-                  <span className="font-medium">Location</span>
-                  <span className="text-gray-600">Available Worldwide</span>
+                  <span className="font-medium">Availability</span>
+                  <span className="text-gray-600">Available for remote opportunities</span>
                 </div>
               </div>
               <div className="flex justify-center space-x-6 mt-6 pt-6 border-t">
-                <Button variant="ghost" size="sm">
-                  <Github className="w-4 h-4 mr-2" />
-                  GitHub
+                <Button variant="ghost" size="sm" asChild>
+                  <a href="https://github.com/DunD514" target="_blank" rel="noopener noreferrer">
+                    <Github className="w-4 h-4 mr-2" />
+                    GitHub
+                  </a>
                 </Button>
-                <Button variant="ghost" size="sm">
-                  <Linkedin className="w-4 h-4 mr-2" />
-                  LinkedIn
+                <Button variant="ghost" size="sm" asChild>
+                  <a href="https://www.linkedin.com/in/duncan-d-lima-24b9b8349/" target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="w-4 h-4 mr-2" />
+                    LinkedIn
+                  </a>
                 </Button>
               </div>
             </CardContent>
