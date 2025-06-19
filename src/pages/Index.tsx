@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,31 +21,8 @@ const Index = () => {
     configScript.async = true;
     document.body.appendChild(configScript);
 
-    // Initialize the webchat when scripts are loaded
-    const initializeBotpress = () => {
-      if (window.botpressWebChat) {
-        // The config script should handle the initialization
-        // We can optionally customize the appearance here
-        window.botpressWebChat.init({
-          botName: 'Career Assistant',
-          botAvatarUrl: 'https://via.placeholder.com/40',
-          theme: 'prism',
-          themeColor: '#2563eb',
-        });
-      }
-    };
-
-    // Wait for both scripts to load
-    let scriptsLoaded = 0;
-    const onScriptLoad = () => {
-      scriptsLoaded++;
-      if (scriptsLoaded === 2) {
-        setTimeout(initializeBotpress, 1000);
-      }
-    };
-
-    injectScript.onload = onScriptLoad;
-    configScript.onload = onScriptLoad;
+    // The config script will automatically initialize the webchat
+    // No need for manual initialization
 
     return () => {
       if (document.body.contains(injectScript)) {
@@ -71,11 +49,11 @@ const Index = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                JD
+                AI
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">John Developer</h1>
-                <p className="text-gray-600">Full Stack Developer & AI Engineer</p>
+                <h1 className="text-2xl font-bold text-gray-900">AI Portfolio Assistant</h1>
+                <p className="text-gray-600">Chat with my AI to learn about my work</p>
               </div>
             </div>
             <Button
@@ -84,7 +62,7 @@ const Index = () => {
               size="lg"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Chat with AI Assistant
+              Chat with AI
             </Button>
           </div>
         </div>
@@ -95,19 +73,19 @@ const Index = () => {
         <section className="text-center mb-12">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              AI-Powered Developer Portfolio
+              Welcome to My AI-Powered Portfolio
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              Explore my projects and experience through an interactive AI assistant. 
-              Click the chat button above to get started!
+              Ask my AI assistant anything about my projects, experience, and skills. 
+              Click the chat button to get started!
             </p>
             <div className="bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100">
               <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-                🤖 Try the AI Assistant
+                🤖 Start a Conversation
               </h3>
               <p className="text-gray-600 mb-6">
-                Ask questions about my projects, experience, skills, or anything else you'd like to know. 
-                The AI assistant has comprehensive knowledge about my professional background.
+                The AI assistant knows everything about my professional background and can answer 
+                detailed questions about my projects, technologies I use, and career experience.
               </p>
               <Button
                 onClick={handleChatToggle}
@@ -115,19 +93,19 @@ const Index = () => {
                 size="lg"
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
-                Start Conversation
+                Open AI Chat
               </Button>
             </div>
           </div>
         </section>
 
-        {/* Quick Contact */}
+        {/* Contact Info */}
         <section className="mb-12">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center text-center justify-center">
                 <Mail className="w-5 h-5 mr-2" />
-                Quick Contact
+                Get in Touch
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -135,7 +113,7 @@ const Index = () => {
                 <div className="flex flex-col items-center space-y-2">
                   <Mail className="w-6 h-6 text-blue-600" />
                   <span className="font-medium">Email</span>
-                  <span className="text-gray-600">john.developer@email.com</span>
+                  <span className="text-gray-600">contact@example.com</span>
                 </div>
                 <div className="flex flex-col items-center space-y-2">
                   <Phone className="w-6 h-6 text-blue-600" />
@@ -145,7 +123,7 @@ const Index = () => {
                 <div className="flex flex-col items-center space-y-2">
                   <MapPin className="w-6 h-6 text-blue-600" />
                   <span className="font-medium">Location</span>
-                  <span className="text-gray-600">San Francisco, CA</span>
+                  <span className="text-gray-600">Available Worldwide</span>
                 </div>
               </div>
               <div className="flex justify-center space-x-6 mt-6 pt-6 border-t">
@@ -161,39 +139,12 @@ const Index = () => {
             </CardContent>
           </Card>
         </section>
-
-        {/* Instructions */}
-        <section className="mb-12">
-          <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
-            <CardContent className="pt-6">
-              <div className="text-center">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  💡 How to Use This Portfolio
-                </h3>
-                <div className="grid md:grid-cols-2 gap-4 text-left">
-                  <div className="bg-white p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-600 mb-2">Ask About Projects</h4>
-                    <p className="text-sm text-gray-600">
-                      "Tell me about your AI projects" or "What's your experience with React?"
-                    </p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-600 mb-2">Get Technical Details</h4>
-                    <p className="text-sm text-gray-600">
-                      "How did you build the deepfake detector?" or "What technologies do you use?"
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
       </main>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-6">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="mb-2">© 2024 John Developer. All rights reserved.</p>
+          <p className="mb-2">© 2024 AI Portfolio. All rights reserved.</p>
           <p className="text-gray-400">Powered by Botpress AI Assistant</p>
         </div>
       </footer>
