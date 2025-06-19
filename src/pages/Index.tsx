@@ -44,37 +44,37 @@ const Index = () => {
       title: "Deep Fake Video Detector",
       description: "Advanced AI system for detecting deepfake videos using machine learning algorithms and neural networks.",
       technologies: ["Python", "TensorFlow", "OpenCV", "Deep Learning"],
-      status: "completed"
+      status: "completed" as const
     },
     {
       title: "Self Driving Car System",
       description: "Autonomous vehicle navigation system with real-time object detection and path planning.",
       technologies: ["Python", "ROS", "Computer Vision", "LiDAR"],
-      status: "in-progress"
+      status: "in-progress" as const
     },
     {
       title: "AI Generated Image Detector",
       description: "Sophisticated tool to identify AI-generated images with high accuracy using ensemble methods.",
       technologies: ["PyTorch", "CNN", "Image Processing", "MLOps"],
-      status: "completed"
+      status: "completed" as const
     },
     {
       title: "Car Recommendation Agent",
       description: "Intelligent recommendation system that suggests vehicles based on user preferences and budget.",
       technologies: ["React", "Node.js", "Machine Learning", "API Integration"],
-      status: "completed"
+      status: "completed" as const
     },
     {
       title: "Resume Optimizer",
       description: "AI-powered tool that analyzes and optimizes resumes for better job application success.",
       technologies: ["NLP", "Python", "React", "API Design"],
-      status: "completed"
+      status: "completed" as const
     },
     {
       title: "Smart Billing Application",
       description: "Automated billing system with invoice generation, payment processing, and analytics.",
       technologies: ["React", "Node.js", "PostgreSQL", "Stripe API"],
-      status: "completed"
+      status: "completed" as const
     }
   ];
 
