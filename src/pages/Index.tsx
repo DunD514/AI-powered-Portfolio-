@@ -1,31 +1,30 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { MessageCircle, Download, Mail, Phone, MapPin, Github, Linkedin, Globe } from "lucide-react";
-import { ProjectCard } from "@/components/ProjectCard";
-import { SkillsSection } from "@/components/SkillsSection";
-import { ContactForm } from "@/components/ContactForm";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MessageCircle, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
 
 const Index = () => {
   const [showChat, setShowChat] = useState(false);
 
-  // Initialize Botpress
+  // Initialize Botpress with the provided scripts
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.botpress.cloud/webchat/v1/inject.js';
-    script.async = true;
-    document.body.appendChild(script);
+    // Load the main Botpress inject script
+    const injectScript = document.createElement('script');
+    injectScript.src = 'https://cdn.botpress.cloud/webchat/v3.0/inject.js';
+    injectScript.async = true;
+    document.body.appendChild(injectScript);
 
-    script.onload = () => {
+    // Load the specific bot configuration script
+    const configScript = document.createElement('script');
+    configScript.src = 'https://files.bpcontent.cloud/2025/05/07/05/20250507051742-4VOYXJHX.js';
+    configScript.async = true;
+    document.body.appendChild(configScript);
+
+    // Initialize the webchat when scripts are loaded
+    const initializeBotpress = () => {
       if (window.botpressWebChat) {
         window.botpressWebChat.init({
-          botId: 'your-bot-id', // Replace with your actual Botpress bot ID
-          hostUrl: 'https://cdn.botpress.cloud/webchat/v1',
-          messagingUrl: 'https://messaging.botpress.cloud',
-          clientId: 'your-client-id', // Replace with your actual client ID
           botName: 'Career Assistant',
           botAvatarUrl: 'https://via.placeholder.com/40',
           theme: 'prism',
@@ -34,49 +33,27 @@ const Index = () => {
       }
     };
 
+    // Wait for both scripts to load
+    let scriptsLoaded = 0;
+    const onScriptLoad = () => {
+      scriptsLoaded++;
+      if (scriptsLoaded === 2) {
+        setTimeout(initializeBotpress, 500);
+      }
+    };
+
+    injectScript.onload = onScriptLoad;
+    configScript.onload = onScriptLoad;
+
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(injectScript)) {
+        document.body.removeChild(injectScript);
+      }
+      if (document.body.contains(configScript)) {
+        document.body.removeChild(configScript);
+      }
     };
   }, []);
-
-  const projects = [
-    {
-      title: "Deep Fake Video Detector",
-      description: "Advanced AI system for detecting deepfake videos using machine learning algorithms and neural networks.",
-      technologies: ["Python", "TensorFlow", "OpenCV", "Deep Learning"],
-      status: "completed" as const
-    },
-    {
-      title: "Self Driving Car System",
-      description: "Autonomous vehicle navigation system with real-time object detection and path planning.",
-      technologies: ["Python", "ROS", "Computer Vision", "LiDAR"],
-      status: "in-progress" as const
-    },
-    {
-      title: "AI Generated Image Detector",
-      description: "Sophisticated tool to identify AI-generated images with high accuracy using ensemble methods.",
-      technologies: ["PyTorch", "CNN", "Image Processing", "MLOps"],
-      status: "completed" as const
-    },
-    {
-      title: "Car Recommendation Agent",
-      description: "Intelligent recommendation system that suggests vehicles based on user preferences and budget.",
-      technologies: ["React", "Node.js", "Machine Learning", "API Integration"],
-      status: "completed" as const
-    },
-    {
-      title: "Resume Optimizer",
-      description: "AI-powered tool that analyzes and optimizes resumes for better job application success.",
-      technologies: ["NLP", "Python", "React", "API Design"],
-      status: "completed" as const
-    },
-    {
-      title: "Smart Billing Application",
-      description: "Automated billing system with invoice generation, payment processing, and analytics.",
-      technologies: ["React", "Node.js", "PostgreSQL", "Stripe API"],
-      status: "completed" as const
-    }
-  ];
 
   const handleChatToggle = () => {
     if (window.botpressWebChat) {
@@ -89,7 +66,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+        <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
@@ -100,70 +77,77 @@ const Index = () => {
                 <p className="text-gray-600">Full Stack Developer & AI Engineer</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <Button
-                onClick={handleChatToggle}
-                className="bg-blue-600 hover:bg-blue-700"
-                size="sm"
-              >
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Chat with AI Assistant
-              </Button>
-              <Button variant="outline" size="sm">
-                <Download className="w-4 h-4 mr-2" />
-                Download Resume
-              </Button>
-            </div>
+            <Button
+              onClick={handleChatToggle}
+              className="bg-blue-600 hover:bg-blue-700"
+              size="lg"
+            >
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Chat with AI Assistant
+            </Button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-8">
+      <main className="max-w-4xl mx-auto px-6 py-8">
         {/* Hero Section */}
         <section className="text-center mb-12">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Building the Future with 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"> AI & Code</span>
+              AI-Powered Developer Portfolio
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              Passionate developer specializing in artificial intelligence, machine learning, and full-stack development. 
-              Turning innovative ideas into reality, one project at a time.
+              Explore my projects and experience through an interactive AI assistant. 
+              Click the chat button above to get started!
             </p>
-            <div className="flex justify-center space-x-4">
-              <Badge variant="secondary" className="text-sm py-2 px-4">🚀 AI Enthusiast</Badge>
-              <Badge variant="secondary" className="text-sm py-2 px-4">💻 Full Stack Developer</Badge>
-              <Badge variant="secondary" className="text-sm py-2 px-4">🎯 Problem Solver</Badge>
+            <div className="bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+                🤖 Try the AI Assistant
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Ask questions about my projects, experience, skills, or anything else you'd like to know. 
+                The AI assistant has comprehensive knowledge about my professional background.
+              </p>
+              <Button
+                onClick={handleChatToggle}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold"
+                size="lg"
+              >
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Start Conversation
+              </Button>
             </div>
           </div>
         </section>
 
-        {/* Contact Info */}
+        {/* Quick Contact */}
         <section className="mb-12">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-center text-center justify-center">
                 <Mail className="w-5 h-5 mr-2" />
-                Get In Touch
+                Quick Contact
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-blue-600" />
-                  <span>john.developer@email.com</span>
+              <div className="grid md:grid-cols-3 gap-4 text-center">
+                <div className="flex flex-col items-center space-y-2">
+                  <Mail className="w-6 h-6 text-blue-600" />
+                  <span className="font-medium">Email</span>
+                  <span className="text-gray-600">john.developer@email.com</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4 text-blue-600" />
-                  <span>+1 (555) 123-4567</span>
+                <div className="flex flex-col items-center space-y-2">
+                  <Phone className="w-6 h-6 text-blue-600" />
+                  <span className="font-medium">Phone</span>
+                  <span className="text-gray-600">+1 (555) 123-4567</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4 text-blue-600" />
-                  <span>San Francisco, CA</span>
+                <div className="flex flex-col items-center space-y-2">
+                  <MapPin className="w-6 h-6 text-blue-600" />
+                  <span className="font-medium">Location</span>
+                  <span className="text-gray-600">San Francisco, CA</span>
                 </div>
               </div>
-              <Separator className="my-4" />
-              <div className="flex justify-center space-x-6">
+              <div className="flex justify-center space-x-6 mt-6 pt-6 border-t">
                 <Button variant="ghost" size="sm">
                   <Github className="w-4 h-4 mr-2" />
                   GitHub
@@ -172,93 +156,44 @@ const Index = () => {
                   <Linkedin className="w-4 h-4 mr-2" />
                   LinkedIn
                 </Button>
-                <Button variant="ghost" size="sm">
-                  <Globe className="w-4 h-4 mr-2" />
-                  Portfolio
-                </Button>
               </div>
             </CardContent>
           </Card>
         </section>
 
-        {/* Skills Section */}
-        <SkillsSection />
-
-        {/* Projects Section */}
+        {/* Instructions */}
         <section className="mb-12">
-          <div className="text-center mb-8">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">Featured Projects</h3>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              A showcase of innovative projects spanning AI, machine learning, and full-stack development. 
-              Each project represents a unique challenge solved with cutting-edge technology.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
-              <ProjectCard key={index} {...project} />
-            ))}
-          </div>
-        </section>
-
-        {/* Certifications */}
-        <section className="mb-12">
-          <Card>
-            <CardHeader>
-              <CardTitle>Certifications & Achievements</CardTitle>
-              <CardDescription>Professional certifications and recognition in the field</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                    <Badge className="w-4 h-4 text-blue-600" />
+          <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+            <CardContent className="pt-6">
+              <div className="text-center">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                  💡 How to Use This Portfolio
+                </h3>
+                <div className="grid md:grid-cols-2 gap-4 text-left">
+                  <div className="bg-white p-4 rounded-lg">
+                    <h4 className="font-semibold text-blue-600 mb-2">Ask About Projects</h4>
+                    <p className="text-sm text-gray-600">
+                      "Tell me about your AI projects" or "What's your experience with React?"
+                    </p>
                   </div>
-                  <div>
-                    <h4 className="font-semibold">AWS Certified Solutions Architect</h4>
-                    <p className="text-sm text-gray-600">Amazon Web Services • 2023</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <Badge className="w-4 h-4 text-green-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Google Cloud Professional ML Engineer</h4>
-                    <p className="text-sm text-gray-600">Google Cloud • 2023</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                    <Badge className="w-4 h-4 text-purple-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">TensorFlow Developer Certificate</h4>
-                    <p className="text-sm text-gray-600">TensorFlow • 2022</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                    <Badge className="w-4 h-4 text-orange-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Certified Kubernetes Administrator</h4>
-                    <p className="text-sm text-gray-600">CNCF • 2022</p>
+                  <div className="bg-white p-4 rounded-lg">
+                    <h4 className="font-semibold text-purple-600 mb-2">Get Technical Details</h4>
+                    <p className="text-sm text-gray-600">
+                      "How did you build the deepfake detector?" or "What technologies do you use?"
+                    </p>
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
         </section>
-
-        {/* Contact Form */}
-        <ContactForm />
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      <footer className="bg-gray-900 text-white py-6">
+        <div className="max-w-4xl mx-auto px-6 text-center">
           <p className="mb-2">© 2024 John Developer. All rights reserved.</p>
-          <p className="text-gray-400">Built with React, TypeScript, and a passion for innovation.</p>
+          <p className="text-gray-400">Powered by Botpress AI Assistant</p>
         </div>
       </footer>
     </div>
