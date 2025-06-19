@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageCircle, Mail, MapPin, Github, Linkedin } from "lucide-react";
+import { MessageCircle, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
 
 const Index = () => {
   const [showChat, setShowChat] = useState(false);
@@ -19,6 +20,9 @@ const Index = () => {
     configScript.src = 'https://files.bpcontent.cloud/2025/05/07/05/20250507051742-4VOYXJHX.js';
     configScript.async = true;
     document.body.appendChild(configScript);
+
+    // The config script will automatically initialize the webchat
+    // No need for manual initialization
 
     return () => {
       if (document.body.contains(injectScript)) {
@@ -105,25 +109,31 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-center">
-                <div className="flex flex-col items-center space-y-2 mb-6">
+              <div className="grid md:grid-cols-3 gap-4 text-center">
+                <div className="flex flex-col items-center space-y-2">
+                  <Mail className="w-6 h-6 text-blue-600" />
+                  <span className="font-medium">Email</span>
+                  <span className="text-gray-600">contact@example.com</span>
+                </div>
+                <div className="flex flex-col items-center space-y-2">
+                  <Phone className="w-6 h-6 text-blue-600" />
+                  <span className="font-medium">Phone</span>
+                  <span className="text-gray-600">+1 (555) 123-4567</span>
+                </div>
+                <div className="flex flex-col items-center space-y-2">
                   <MapPin className="w-6 h-6 text-blue-600" />
-                  <span className="font-medium">Availability</span>
-                  <span className="text-gray-600">Available for remote opportunities</span>
+                  <span className="font-medium">Location</span>
+                  <span className="text-gray-600">Available Worldwide</span>
                 </div>
               </div>
-              <div className="flex justify-center space-x-6 pt-6 border-t">
-                <Button variant="ghost" size="sm" asChild>
-                  <a href="https://github.com/DunD514" target="_blank" rel="noopener noreferrer">
-                    <Github className="w-4 h-4 mr-2" />
-                    GitHub
-                  </a>
+              <div className="flex justify-center space-x-6 mt-6 pt-6 border-t">
+                <Button variant="ghost" size="sm">
+                  <Github className="w-4 h-4 mr-2" />
+                  GitHub
                 </Button>
-                <Button variant="ghost" size="sm" asChild>
-                  <a href="https://www.linkedin.com/in/duncan-d-lima-24b9b8349/" target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="w-4 h-4 mr-2" />
-                    LinkedIn
-                  </a>
+                <Button variant="ghost" size="sm">
+                  <Linkedin className="w-4 h-4 mr-2" />
+                  LinkedIn
                 </Button>
               </div>
             </CardContent>
