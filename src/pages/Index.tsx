@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,6 +23,8 @@ const Index = () => {
     // Initialize the webchat when scripts are loaded
     const initializeBotpress = () => {
       if (window.botpressWebChat) {
+        // The config script should handle the initialization
+        // We can optionally customize the appearance here
         window.botpressWebChat.init({
           botName: 'Career Assistant',
           botAvatarUrl: 'https://via.placeholder.com/40',
@@ -38,7 +39,7 @@ const Index = () => {
     const onScriptLoad = () => {
       scriptsLoaded++;
       if (scriptsLoaded === 2) {
-        setTimeout(initializeBotpress, 500);
+        setTimeout(initializeBotpress, 1000);
       }
     };
 
