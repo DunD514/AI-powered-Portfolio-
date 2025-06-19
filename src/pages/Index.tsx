@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageCircle, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
+import { MessageCircle, Mail, MapPin, Github, Linkedin } from "lucide-react";
 
 const Index = () => {
   const [showChat, setShowChat] = useState(false);
@@ -106,24 +105,14 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-3 gap-4 text-center">
-                <div className="flex flex-col items-center space-y-2">
-                  <Mail className="w-6 h-6 text-blue-600" />
-                  <span className="font-medium">Email</span>
-                  <span className="text-gray-600">dund514@gmail.com</span>
-                </div>
-                <div className="flex flex-col items-center space-y-2">
-                  <Phone className="w-6 h-6 text-blue-600" />
-                  <span className="font-medium">Phone</span>
-                  <span className="text-gray-600">+1 (647) 866-8514</span>
-                </div>
-                <div className="flex flex-col items-center space-y-2">
+              <div className="text-center">
+                <div className="flex flex-col items-center space-y-2 mb-6">
                   <MapPin className="w-6 h-6 text-blue-600" />
                   <span className="font-medium">Availability</span>
                   <span className="text-gray-600">Available for remote opportunities</span>
                 </div>
               </div>
-              <div className="flex justify-center space-x-6 mt-6 pt-6 border-t">
+              <div className="flex justify-center space-x-6 pt-6 border-t">
                 <Button variant="ghost" size="sm" asChild>
                   <a href="https://github.com/DunD514" target="_blank" rel="noopener noreferrer">
                     <Github className="w-4 h-4 mr-2" />
